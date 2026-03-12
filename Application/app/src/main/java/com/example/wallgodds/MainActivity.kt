@@ -26,6 +26,8 @@ import com.example.wallgodds.navigation.Routes
 import com.example.wallgodds.navigation.listOfNavItems
 import com.example.wallgodds.screens.FavoritesPage
 import com.example.wallgodds.screens.HomePage
+import com.example.wallgodds.screens.ProfilePageScreen
+import com.example.wallgodds.screens.UploadImagePage
 import com.example.wallgodds.screens.ProfilePage
 import com.example.wallgodds.screens.UploadPage
 import com.example.wallgodds.ui.theme.WallGoddsTheme
@@ -53,7 +55,7 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     floatingActionButton = {
-                        if (navBackStackEntry?.destination?.route in listOfNavItems.map { it.route }) {
+                        if (navBackStackEntry?.destination?.route in listOfNavItems.map { it.route } || navBackStackEntry?.destination?.route == Routes.upload_image_page) {
                             CustomNavigationBar(
                                 hazeState = hazeState,
                                 currentDestination = currentDestination,
@@ -64,7 +66,7 @@ class MainActivity : ComponentActivity() {
                                             saveState = true
                                         }
                                         launchSingleTop = true
-                                        restoreState = true
+                                        restoreState = item.route != Routes.upload_page
                                     }
                                 }
                             )
@@ -95,6 +97,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(Routes.upload_page) {
                                 UploadPage(navController)
+                            }
+                            composable(Routes.upload_image_page) {
+                                UploadImagePage(navController)
                             }
                             composable(Routes.profile_page) {
                                 ProfilePage(navController)
